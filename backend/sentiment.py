@@ -23,7 +23,7 @@ def load_model(model_dir: Path) -> None:
     tokenizer_path = model_dir / "tokenizer.json"
     if not onnx_path.exists() or not tokenizer_path.exists():
         raise FileNotFoundError(
-            f"Modèle introuvable dans {model_dir} ({"sentiment.onnx"} et/ou {"tokenizer.json"} manquant). "
+            f"Modèle introuvable dans {model_dir} (sentiment.onnx et/ou tokenizer.json manquant). "
             "Lance d'abord `setup_models.py --onnx` (voir README)."
         )
 
