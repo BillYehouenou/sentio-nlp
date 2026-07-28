@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sentio — Résultats d'analyse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body data-page="results">
+
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="g-chip" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#64b5f6" /><stop offset="1" stop-color="#0071e3" /></linearGradient>
+      <linearGradient id="g-ring-positive" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#8fe3b8" /><stop offset="100%" stop-color="#1a9c63" /></linearGradient>
+      <linearGradient id="g-ring-neutral" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f8d68a" /><stop offset="100%" stop-color="#d1861a" /></linearGradient>
+      <linearGradient id="g-ring-negative" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f6a8a3" /><stop offset="100%" stop-color="#c93327" /></linearGradient>
+      <filter id="soft-shadow" x="-40%" y="-40%" width="180%" height="180%">
+        <feDropShadow dx="0" dy="2" stdDeviation="2.4" flood-opacity="0.25" />
+      </filter>
+    </defs>
+  </svg>
+
+  <main class="results-main" style="position: relative; z-index: 1; padding-top: 64px; padding-bottom: 24px;">
+
+    <p class="banner banner--error" data-no-results>
+      Aucun résultat à afficher. <a href="app.html">Lance une nouvelle analyse</a> pour voir des résultats ici.
+    </p>
+
+    <div data-results-content style="display: none;">
+
+      <div class="hero reveal" style="margin-bottom: 0;">
+        <p class="eyebrow" style="text-align: center;">Analyse terminée</p>
+        <h1 style="font-size: clamp(1.9rem, 4.8vw, 2.6rem); max-width: 640px; margin: 10px auto 0; text-align: center;">
+          Ce que le public ressent vraiment
+        </h1>
+
+        <div class="results-hero-grid">
+          <div class="results-hero-col--left">
+            <div class="video-card results-stagger-item">
+              <div class="video-card__thumb" data-video-thumb>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="#fff" /></svg>
+              </div>
+              <div class="video-card__meta">
+                <h2 data-video-title>—</h2>
+                <div class="channel" data-video-channel>—</div>
+                <div class="stats">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M3 9h18M8 2v4M16 2v4" /></svg>
+                  <span>Publiée le <span data-video-published>—</span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="results-badges results-stagger-item">
+              <div class="results-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8" /><circle cx="12" cy="12" r="2.5" /></svg>
+                <span><strong data-avg-confidence>—</strong> confiance moyenne</span>
+              </div>
+              <div class="results-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z" /></svg>
+                <span><strong data-meta-latency-metric>—</strong> par commentaire</span>
+              </div>
+              <a href="index.html" class="results-badge results-badge--action">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 1 2.6 6.3" /><path d="M3 21v-6h6" /></svg>
+                <span>Nouvelle analyse</span>
+              </a>
+            </div>
+          </div>
+
+          <div id="orb-parallax" class="orb-cluster results-stagger-item" data-results-orbs style="transition: transform 0.3s ease-out;">
+            <div class="orb-item" data-sentiment="positive">
+              <div class="ring-wrap">
+                <svg class="ring" viewBox="0 0 140 140" aria-hidden="true">
+                  <circle class="ring-bg" cx="70" cy="70" r="60" />
+                  <circle class="ring-fg positive" cx="70" cy="70" r="60" />
+                  <circle class="ring-cap" data-cap="positive" cx="70" cy="10" r="6" stroke="#1a9c63" />
+                </svg>
+                <span class="ring-value positive">0%</span>
+              </div>
+              <div class="ring-label">Positif</div>
+              <div class="ring-count"></div>
+            </div>
+            <div class="orb-item" data-sentiment="neutral">
+              <div class="ring-wrap">
+                <svg class="ring" viewBox="0 0 140 140" aria-hidden="true">
+                  <circle class="ring-bg" cx="70" cy="70" r="60" />
+                  <circle class="ring-fg neutral" cx="70" cy="70" r="60" />
+                  <circle class="ring-cap" data-cap="neutral" cx="70" cy="10" r="6" stroke="#d1861a" />
+                </svg>
+                <span class="ring-value neutral">0%</span>
+              </div>
+              <div class="ring-label">Neutre</div>
+              <div class="ring-count"></div>
+            </div>
+            <div class="orb-item" data-sentiment="negative">
+              <div class="ring-wrap">
+                <svg class="ring" viewBox="0 0 140 140" aria-hidden="true">
+                  <circle class="ring-bg" cx="70" cy="70" r="60" />
+                  <circle class="ring-fg negative" cx="70" cy="70" r="60" />
+                  <circle class="ring-cap" data-cap="negative" cx="70" cy="10" r="6" stroke="#c93327" />
+                </svg>
+                <span class="ring-value negative">0%</span>
+              </div>
+              <div class="ring-label">Négatif</div>
+              <div class="ring-count"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card reveal" style="margin-top: 40px;">
+        <div class="card-head">
+          <svg viewBox="0 0 32 32" style="width:26px;height:26px;" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="url(#g-chip)" /><path d="M8 20l5-6 4 4 7-9" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" /></svg>
+          <h3>Évolution dans le temps</h3>
+        </div>
+        <p class="muted" style="font-size:0.8rem; margin: 0.2rem 0 1rem;">Regroupé par mois de publication du commentaire</p>
+
+        <div class="chart-card__canvas-wrap" style="height: 340px;">
+          <canvas id="timelineChart" role="img" aria-label="Courbe d'évolution des sentiments par mois"></canvas>
+        </div>
+
+        <div class="chart-trends" data-chart-trends>
+          <div class="chart-trend">
+            <span class="chart-trend__label"><span class="chart-trend__dot" style="background: var(--positive);"></span>Positif</span>
+            <span class="chart-trend__delta" data-trend="positive">—</span>
+          </div>
+          <div class="chart-trend">
+            <span class="chart-trend__label"><span class="chart-trend__dot" style="background: var(--neutral);"></span>Neutre</span>
+            <span class="chart-trend__delta" data-trend="neutral">—</span>
+          </div>
+          <div class="chart-trend">
+            <span class="chart-trend__label"><span class="chart-trend__dot" style="background: var(--negative);"></span>Négatif</span>
+            <span class="chart-trend__delta" data-trend="negative">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top: 20px;">
+        <div class="card-head">
+          <svg viewBox="0 0 32 32" style="width:26px;height:26px;" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="url(#g-chip)" /><path d="M9 20V13M16 20V9M23 20v-5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity="0.9" /></svg>
+          <h3>Mots les plus fréquents</h3>
+        </div>
+        <p class="muted" style="font-size:0.8rem; margin: 0.2rem 0 1.2rem;">Hors mots vides (le, la, de, et...), par sentiment — taille proportionnelle à la fréquence</p>
+        <div class="words-grid">
+          <div class="word-cloud-card">
+            <div class="word-cloud" data-words="positive" data-sentiment="positive"></div>
+          </div>
+          <div class="word-cloud-card">
+            <div class="word-cloud" data-words="neutral" data-sentiment="neutral"></div>
+          </div>
+          <div class="word-cloud-card">
+            <div class="word-cloud" data-words="negative" data-sentiment="negative"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card--flat card--compact reveal" style="margin-top: 20px;" data-tabs>
+        <div class="card-head" style="margin-bottom: 1.2rem;">
+          <svg viewBox="0 0 32 32" style="width:26px;height:26px;" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="url(#g-chip)" /><path d="M9 12h14M9 16h14M9 20h8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" opacity="0.9" /></svg>
+          <h3>Commentaires marquants</h3>
+        </div>
+
+        <div class="tab-underline-list" role="tablist" aria-label="Filtrer les commentaires par sentiment">
+          <div class="tab-underline-indicator" aria-hidden="true"></div>
+          <button class="tabs__btn" role="tab" data-sentiment="positive" aria-selected="true">Positifs</button>
+          <button class="tabs__btn" role="tab" data-sentiment="neutral" aria-selected="false">Neutres</button>
+          <button class="tabs__btn" role="tab" data-sentiment="negative" aria-selected="false">Négatifs</button>
+        </div>
+
+        <div class="tabs__panel is-active" data-sentiment="positive" role="tabpanel">
+          <div data-comments="positive" data-sentiment="positive"></div>
+        </div>
+        <div class="tabs__panel" data-sentiment="neutral" role="tabpanel">
+          <div data-comments="neutral" data-sentiment="neutral"></div>
+        </div>
+        <div class="tabs__panel" data-sentiment="negative" role="tabpanel">
+          <div data-comments="negative" data-sentiment="negative"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-line"></div>
+      <p class="footer-copy">© 2026 Sentio. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
