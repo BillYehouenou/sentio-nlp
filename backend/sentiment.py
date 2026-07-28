@@ -9,6 +9,7 @@ import onnxruntime
 from transformers import PreTrainedTokenizerBase, PreTrainedTokenizerFast
 
 LABELS = ["negative", "neutral", "positive"]
+ONNX_FILENAME = "sentiment.onnx"
 
 _tokenizer: PreTrainedTokenizerBase | None = None
 _session: onnxruntime.InferenceSession | None = None
@@ -19,7 +20,7 @@ def load_model(model_dir: Path) -> None:
     """Charger le modèle de sentiment ONNX et le tokenizer depuis le répertoire donné."""
     global _tokenizer, _session, _input_names
 
-    onnx_path = model_dir / "sentiment.onnx"
+    onnx_path = model_dir / ONNX_FILENAME
     tokenizer_path = model_dir / "tokenizer.json"
     if not onnx_path.exists() or not tokenizer_path.exists():
         raise FileNotFoundError(
