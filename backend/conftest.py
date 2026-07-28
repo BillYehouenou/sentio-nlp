@@ -1,0 +1,1 @@
+# Rend le backend/ importable comme un module. Sinon, pytest ne pourra pas être utiliser.
