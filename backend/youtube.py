@@ -149,6 +149,7 @@ def fetch_comments(youtube, video_id: str, max_comments: int) -> list[RawComment
                     maxResults=min(100, max_comments - len(comments)),
                     pageToken=page_token,
                     textFormat="plainText",
+                    order="relevance",
                 )
                 .execute()
             )
