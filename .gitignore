@@ -15,3 +15,6 @@ wheels/
 
 # Models
 backend/model/
+
+# Données
+backend/data/
