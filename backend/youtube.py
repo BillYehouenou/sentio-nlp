@@ -135,7 +135,7 @@ def fetch_video_meta(youtube, video_id: str) -> VideoMeta:
     )
 
 
-def fetch_comments(youtube, video_id: str, max_comments: int) -> list[RawComment]:
+def fetch_comments(youtube, video_id: str, max_comments: int, order: str = "relevance") -> list[RawComment]:
     comments: list[RawComment] = []
     page_token: str | None = None
 
@@ -149,7 +149,7 @@ def fetch_comments(youtube, video_id: str, max_comments: int) -> list[RawComment
                     maxResults=min(100, max_comments - len(comments)),
                     pageToken=page_token,
                     textFormat="plainText",
-                    order="relevance",
+                    order=order,
                 )
                 .execute()
             )
